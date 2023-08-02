@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <BasicLayout />
+    <template v-if="route.path.startsWith('/user')">
+      <router-view />
+    </template>
+    <template v-else>
+      <BasicLayout />
+    </template>
   </div>
 </template>
 
@@ -11,21 +16,9 @@
 <script setup lang="ts">
 import BasicLayout from "@/layouts/BasicLayout.vue";
 import { onMounted } from "vue";
-import { useStore } from "vuex";
-import router from "@/router";
-import AccessEnum from "@/access/accessEnum";
+import { useRoute } from "vue-router";
 
-const store = useStore();
-router.beforeEach((to, from, next) => {
-  // 全局路由守卫鉴权
-  if (to.meta?.access === AccessEnum.ADMIN) {
-    if (store.state.user.loginUser?.role != AccessEnum.ADMIN) {
-      next("/noauth");
-      return;
-    }
-  }
-  next();
-});
+const route = useRoute();
 const doInit = () => {
   console.log("欢迎来到Yovvis的项目");
 };

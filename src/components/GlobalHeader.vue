@@ -35,7 +35,6 @@ import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import checkAccess from "@/access/checkAccess";
-import ACCESS_ENUM from "@/access/accessEnum";
 
 const router = useRouter();
 const store = useStore();
@@ -55,12 +54,12 @@ const visiableRouters = computed(() => {
   });
 });
 
-setTimeout(() => {
-  store.dispatch("user/getLoginUser", {
-    userName: "Yovvis",
-    userRole: ACCESS_ENUM.ADMIN,
-  });
-}, 3000);
+// setTimeout(() => {
+//   store.dispatch("user/getLoginUser", {
+//     userName: "Yovvis",
+//     userRole: ACCESS_ENUM.ADMIN,
+//   });
+// }, 3000);
 // 全局路由守卫,路由跳转后
 const selectKeys = ref(["/"]);
 router.afterEach((to) => {
