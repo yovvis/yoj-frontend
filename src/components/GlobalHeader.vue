@@ -39,7 +39,7 @@ import ACCESS_ENUM from "@/access/accessEnum";
 
 const router = useRouter();
 const store = useStore();
-console.log("@", store);
+// console.log("@", store);
 // 展示在菜单的路由数组
 const visiableRouters = computed(() => {
   return routes.filter((item, index) => {
