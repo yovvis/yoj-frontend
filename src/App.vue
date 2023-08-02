@@ -10,20 +10,26 @@
 </style>
 <script setup lang="ts">
 import BasicLayout from "@/layouts/BasicLayout.vue";
-import { useRouter } from "vue-router";
+import { onMounted } from "vue";
 import { useStore } from "vuex";
+import router from "@/router";
+import AccessEnum from "@/access/accessEnum";
 
-const router = useRouter();
 const store = useStore();
 router.beforeEach((to, from, next) => {
   // 全局路由守卫鉴权
-  if (to.meta?.access === "canAdmin") {
-    if (store.state.user.loginUser?.role != "admin") {
+  if (to.meta?.access === AccessEnum.ADMIN) {
+    if (store.state.user.loginUser?.role != AccessEnum.ADMIN) {
       next("/noauth");
       return;
     }
   }
   next();
 });
-// 测试premitter
+const doInit = () => {
+  console.log("欢迎来到Yovvis的项目");
+};
+onMounted(() => {
+  doInit();
+});
 </script>

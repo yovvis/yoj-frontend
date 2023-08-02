@@ -1,10 +1,9 @@
 import { StoreOptions } from "vuex";
 import AccessEnum from "@/access/accessEnum";
 
-// state
-
 export default {
   namespaced: true,
+  // state
   state: () => ({
     loginUser: {
       userName: "未登录",

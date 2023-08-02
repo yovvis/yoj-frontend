@@ -7,10 +7,9 @@
       <router-view />
     </a-layout-content>
     <a-layout-footer class="footer">
-      <a href="https://github.com/yovvis" target="_blank"
-        >Yoj By Yovvis @all rights reserved</a
-      ></a-layout-footer
-    >
+      <a href="https://github.com/yovvis" target="_blank">Yoj By Yovvis</a>
+      <span style="margin-left: 2px">@all rights reserved </span>
+    </a-layout-footer>
   </a-layout>
 </template>
 
