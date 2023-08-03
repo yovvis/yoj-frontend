@@ -24,24 +24,37 @@
       </div>
     </a-col>
     <a-col flex="100px">
-      <div>{{ store.state.user?.loginUser?.userName ?? "未登录" }}</div>
+      <a-space size="large">
+        <a-dropdown @select="handleSelect">
+          <a-button
+            >{{ store.state.user?.loginUser?.userName ?? "未登录" }}
+          </a-button>
+          <template #content>
+            <a-doption value="center">个人中心</a-doption>
+            <a-doption value="logout">退出登录</a-doption>
+          </template>
+        </a-dropdown>
+      </a-space>
+      <div></div>
     </a-col>
   </a-row>
 </template>
 
 <script lang="ts" setup>
-import { routes } from "@/router/routes";
+import menuRoutes from "@/router/menuroutes";
 import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import checkAccess from "@/access/checkAccess";
+import { UserControllerService } from "../../generated";
+import message from "@arco-design/web-vue/es/message";
 
 const router = useRouter();
 const store = useStore();
 // console.log("@", store);
 // 展示在菜单的路由数组
 const visiableRouters = computed(() => {
-  return routes.filter((item, index) => {
+  return menuRoutes.filter((item, index) => {
     if (item.meta?.hideInMenu) {
       return false;
     }
@@ -60,6 +73,18 @@ const visiableRouters = computed(() => {
 //     userRole: ACCESS_ENUM.ADMIN,
 //   });
 // }, 3000);
+// 用户下拉
+const handleSelect = async (val: string) => {
+  console.log(val);
+  if (val === "logout") {
+    const resp = await UserControllerService.userLogoutUsingPost();
+    if (resp.code === 0) {
+      await router.push({ path: "/user/login", replace: true });
+    } else {
+      message.error("退出失败，" + resp.message);
+    }
+  }
+};
 // 全局路由守卫,路由跳转后
 const selectKeys = ref(["/"]);
 router.afterEach((to) => {

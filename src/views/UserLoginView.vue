@@ -21,11 +21,12 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { UserControllerService, UserLoginRequest } from "../../generated";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import message from "@arco-design/web-vue/es/message";
 
 const router = useRouter();
+const route = useRoute();
 const store = useStore();
 const form = reactive({
   userAccount: "",
@@ -34,9 +35,9 @@ const form = reactive({
 const handleSubmit = async () => {
   const resp = await UserControllerService.userLoginUsingPost(form);
   if (resp.code === 0) {
-    await store.dispatch("/user/getLoginUser", resp.data);
+    await store.dispatch("user/getLoginUser", resp.data);
     await router.push({
-      path: "/",
+      path: (route.query.redirect as string) ?? "/",
       replace: true,
     });
   } else {
