@@ -1,37 +1,8 @@
 import { RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import ACCESS_ENUM from "@/access/accessEnum";
-import UserLayout from "@/layouts/UserLayout.vue";
-import UserLoginView from "@/views/UserLoginView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/user",
-    name: "用户",
-    component: () =>
-      import(/* webpackChunkName: "userlayout" */ "../layouts/UserLayout.vue"),
-    meta: {
-      hideInMenu: true,
-    },
-    children: [
-      {
-        path: "login",
-        name: "登录",
-        component: () =>
-          import(
-            /* webpackChunkName: "userlogin */ "../views/UserLoginView.vue"
-          ),
-      },
-      {
-        path: "register",
-        name: "注册",
-        component: () =>
-          import(
-            /* webpackChunkName: "userregister" */ "../views/UserRegisterView.vue"
-          ),
-      },
-    ],
-  },
   {
     path: "/",
     name: "浏览题目",
@@ -43,11 +14,11 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "关于我的",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
     meta: {
       access: ACCESS_ENUM.USER,
     },
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
     path: "/admin",
@@ -75,5 +46,32 @@ export const routes: Array<RouteRecordRaw> = [
     },
     component: () =>
       import(/* webpackChunkName: "hide" */ "../views/HideView.vue"),
+  },
+  {
+    path: "/user",
+    name: "用户",
+    component: () =>
+      import(/* webpackChunkName: "userlayout" */ "../layouts/UserLayout.vue"),
+    meta: {
+      hideInMenu: true,
+    },
+    children: [
+      {
+        path: "login",
+        name: "登录",
+        component: () =>
+          import(
+            /* webpackChunkName: "userlogin */ "../views/UserLoginView.vue"
+          ),
+      },
+      {
+        path: "register",
+        name: "注册",
+        component: () =>
+          import(
+            /* webpackChunkName: "userregister" */ "../views/UserRegisterView.vue"
+          ),
+      },
+    ],
   },
 ];
