@@ -14,7 +14,7 @@
           >
             <div class="title-bar">
               <img class="logo" src="../assets/yoj-logo.svg" />
-              <div class="title">Y - oj</div>
+              <div class="title">Y - OJ</div>
             </div>
           </a-menu-item>
           <a-menu-item v-for="item in visiableRouters" :key="item.path"
@@ -26,9 +26,9 @@
     <a-col flex="100px">
       <a-space size="large">
         <a-dropdown @select="handleSelect">
-          <a-button
-            >{{ store.state.user?.loginUser?.userName ?? "未登录" }}
-          </a-button>
+          <a-avatar>
+            <img :src="store.state.user?.loginUser?.userAvatar" />
+          </a-avatar>
           <template #content>
             <a-doption value="center">个人中心</a-doption>
             <a-doption value="logout">退出登录</a-doption>
